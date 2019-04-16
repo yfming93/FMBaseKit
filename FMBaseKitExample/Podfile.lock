@@ -1,0 +1,16 @@
+PODS:
+  - FMBaseKit (1.0.0)
+
+DEPENDENCIES:
+  - FMBaseKit (from `./../`)
+
+EXTERNAL SOURCES:
+  FMBaseKit:
+    :path: "./../"
+
+SPEC CHECKSUMS:
+  FMBaseKit: acf76ff2c47e7dca4f95d797d623a58caf52b499
+
+PODFILE CHECKSUM: e0b236e6a8c95bba23d821ba8b56c83520b08110
+
+COCOAPODS: 1.5.3
