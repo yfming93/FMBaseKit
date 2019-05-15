@@ -7,7 +7,8 @@
 //
 
 #import "FMBaseKitNavigationController.h"
-#define kColorCCC [UIColor colorWithRed:0.80 green:0.80 blue:0.80 alpha:1.00]
+//#define kColorCCC [UIColor colorWithRed:0.80 green:0.80 blue:0.80 alpha:1.00] /// 灰色
+#define kColorCCC UIColor.clearColor
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width
 
 @interface FMBaseKitNavigationController ()<UIGestureRecognizerDelegate>
@@ -40,6 +41,7 @@
         backgroundImageOrColor = [self imageWithColor:backgroundImageOrColor];
     }
     if ([backgroundImageOrColor isKindOfClass:[UIImage class]]) {
+        backgroundImageOrColor = [backgroundImageOrColor resizableImageWithCapInsets:UIEdgeInsetsZero resizingMode:UIImageResizingModeStretch];
         [self.navigationBar setBackgroundImage:backgroundImageOrColor forBarMetrics:UIBarMetricsDefault];
     }
 }
