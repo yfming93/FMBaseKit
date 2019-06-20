@@ -47,10 +47,12 @@
     if (title.length) {
         [button setTitle:title forState:UIControlStateNormal];
         NSInteger index = title.length;
-        CGFloat w = 15 + 16*(index - 1);
+        CGFloat w = 18 + 16*(index - 1);
         button.frame = CGRectMake(0, 0, w + imaW, 44);
         if (kIsiPhone_6_6s_7_8) {
-            [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
+            [button.titleLabel setFont:[UIFont systemFontOfSize:13]];
+        }else{
+            [button.titleLabel setFont:[UIFont systemFontOfSize:15]];
         }
     }
     
