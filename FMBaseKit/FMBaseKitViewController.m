@@ -20,9 +20,10 @@
     [super viewDidLoad];
     _pageNo = 1;
     self.automaticallyAdjustsScrollViewInsets = NO;
+    self.modalPresentationStyle = UIModalPresentationFullScreen;
 
-  
 }
+
 
 #pragma mark - UIAlertController
 -(void)fm_alertControllerTitlie:(NSString *)str1 subTitle:(NSString *)str2 {
@@ -47,12 +48,12 @@
     if (title.length) {
         [button setTitle:title forState:UIControlStateNormal];
         NSInteger index = title.length;
-        CGFloat w = 18 + 16*(index - 1);
+        CGFloat w = 20 + 18*(index - 1);
         button.frame = CGRectMake(0, 0, w + imaW, 44);
         if (kIsiPhone_6_6s_7_8) {
             [button.titleLabel setFont:[UIFont systemFontOfSize:13]];
         }else{
-            [button.titleLabel setFont:[UIFont systemFontOfSize:15]];
+            [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
         }
     }
     

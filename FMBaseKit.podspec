@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'FMBaseKit' # 项目名称
-  s.version      = '1.1.0'       # 版本号 与 你仓库的 标签号 对应
+  s.version      = '1.1.1'       # 版本号 与 你仓库的 标签号 对应
   s.license      = 'MIT'          # 开源证书
   s.summary      = 'A set of useful Base Object for Foundation, UIKit and more.' # 项目简介
   s.homepage     = 'https://github.com/yfming93/FMBaseKit' # 你的主页

@@ -25,17 +25,13 @@
 
 
 
--(void)setRadius:(CGFloat)radius {
-    _radius = radius;
-    [self.layer setCornerRadius:(radius)];
-    [self.layer setMasksToBounds:YES];
-}
-
 - (void)fm_setBorderColor:(UIColor *)color borderWidth:(CGFloat)width radius:(CGFloat)radius {
     [self.layer setBorderWidth:(width)];
     [self.layer setBorderColor:[color CGColor]];
     if (radius) {
-        self.radius = radius;
+        [self.layer setCornerRadius:(radius)];
+        [self.layer setMasksToBounds:YES];
+        
     }
 }
 

@@ -18,6 +18,13 @@
 
 @implementation FMBaseKitNavigationController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.modalPresentationStyle = UIModalPresentationFullScreen;
+
+}
+
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self fm_exchangeNavBottomLine];
