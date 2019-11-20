@@ -11,6 +11,5 @@
 @interface FMBaseKitModel : NSObject
 @property (nonatomic, copy) NSString *description_field;
 @property (nonatomic, copy) NSString *id;
-@property (nonatomic, copy) NSString *idid;
 
 @end
