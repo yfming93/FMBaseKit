@@ -11,10 +11,18 @@
 
 
 @interface FMBaseKitViewController ()
-@property (nonatomic, copy) BtnActionBlock btnActionBlock;
+@property (nonatomic, strong) NSMutableArray <BtnActionBlock>*arrBlocks;
+
 @end
 
 @implementation FMBaseKitViewController
+
+- (NSMutableArray *)arrBlocks{
+    if (!_arrBlocks) {
+        _arrBlocks =[[NSMutableArray alloc] init];
+    }
+    return _arrBlocks;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,8 +44,10 @@
 }
 
 - (UIButton *)fm_navigationTargetController:(UIViewController *)targetViewController isLeft:(BOOL)isLeft barTitle:(NSString *)title buttonTextColor:(UIColor *)buttonTextColor itemButtonImaName:(NSString *)itemImaName btnHandler:(BtnActionBlock)btnActionBlock {
-    self.btnActionBlock = btnActionBlock;
+    BtnActionBlock handler = btnActionBlock;
     UIButton *button = [[UIButton alloc] init];
+    button.tag = self.arrBlocks.count;
+    [self.arrBlocks addObject:handler];
     CGFloat imaW = 0;
     if (itemImaName.length) {
         imaW = 44;
@@ -70,13 +80,12 @@
         targetViewController.navigationItem.rightBarButtonItem = barBtn;
     }
     [button addTarget:self action:@selector(fm_btnAction:) forControlEvents:UIControlEventTouchUpInside];
-    
     return button;
 }
 
 - (void)fm_btnAction:(UIButton *)sender {
-    if (self.btnActionBlock) {
-        self.btnActionBlock(sender);
+    if (self.arrBlocks[sender.tag]) {
+        self.arrBlocks[sender.tag](sender);
     }
 }
 
