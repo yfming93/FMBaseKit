@@ -7,6 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+typedef NS_ENUM(NSInteger, FMGradientDirection) {
+        /// 水平渐变
+    FMGradientDirectionLevel,
+        /// 竖直渐变
+    FMGradientDirectionVertical,
+        /// 向下对角线渐变
+    FMGradientDirectionUpwardDiagonalLine,
+        /// 向上对角线渐变
+    FMGradientDirectionDownDiagonalLine,
+};
 
 @interface FMBaseKitNavigationController : UINavigationController
 /// 导航栏底部的细线 颜色
@@ -16,5 +26,5 @@
 
 - (void)hideNavBottomLine;
 - (void)showNavBottomLine;
-
+- (UIImage *)fm_backgroundColorGradientChangeWithDirection:(FMGradientDirection)direction startColor:(UIColor *)startcolor endColor:(UIColor *)endColor;
 @end

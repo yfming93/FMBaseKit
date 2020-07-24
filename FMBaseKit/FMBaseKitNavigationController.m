@@ -21,13 +21,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.modalPresentationStyle = UIModalPresentationFullScreen;
+    self.navBottomLineColor = UIColor.clearColor;
 
 }
 
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self fm_exchangeNavBottomLine];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+//    [self fm_exchangeNavBottomLine];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -90,7 +96,7 @@
 
 - (void)hideBorderInView:(UIView *)view{
     if ([view isKindOfClass:[UIImageView class]]
-        && view.frame.size.height <= 1) {
+        && view.frame.size.height <= 1.0) {
         view.hidden = YES;
     }
     for (UIView *subView in view.subviews) {
@@ -115,6 +121,52 @@
     }else{
         return UIInterfaceOrientationMaskPortrait;
     }
+}
+
+
+- (UIImage *)fm_backgroundColorGradientChangeWithDirection:(FMGradientDirection)direction
+                                    startColor:(UIColor *)startcolor
+                                      endColor:(UIColor *)endColor {
+    
+    if (  !startcolor || !endColor) {
+        return nil;
+    }
+    
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    gradientLayer.frame = CGRectMake(0, 0, self.navigationBar.bounds.size.width, self.navigationBar.bounds.size.height);
+    
+    CGPoint startPoint = CGPointZero;
+    if (direction == FMGradientDirectionDownDiagonalLine) {
+        startPoint = CGPointMake(0.0, 1.0);
+    }
+    gradientLayer.startPoint = startPoint;
+    
+    CGPoint endPoint = CGPointZero;
+    switch (direction) {
+        case FMGradientDirectionLevel:
+            endPoint = CGPointMake(1.0, 0.0);
+            break;
+        case FMGradientDirectionVertical:
+            endPoint = CGPointMake(0.0, 1.0);
+            break;
+        case FMGradientDirectionUpwardDiagonalLine:
+            endPoint = CGPointMake(1.0, 1.0);
+            break;
+        case FMGradientDirectionDownDiagonalLine:
+            endPoint = CGPointMake(1.0, 0.0);
+            break;
+        default:
+            break;
+    }
+    gradientLayer.endPoint = endPoint;
+    
+    gradientLayer.colors = @[(__bridge id)startcolor.CGColor, (__bridge id)endColor.CGColor];
+    UIGraphicsBeginImageContext(self.navigationBar.bounds.size);
+    [gradientLayer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage*image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    self.backgroundImageOrColor = image;
+    return image;
 }
 
 #pragma mark - Private Method

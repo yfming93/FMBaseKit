@@ -7,8 +7,6 @@
 //
 
 #import "FMBaseKitViewController.h"
-#define kIsiPhone_6_6s_7_8 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) : NO)
-
 
 @interface FMBaseKitViewController ()
 @property (nonatomic, strong) NSMutableArray <BtnActionBlock>*arrBlocks;
@@ -57,14 +55,10 @@
     
     if (title.length) {
         [button setTitle:title forState:UIControlStateNormal];
-        NSInteger index = title.length;
-        CGFloat w = 20 + 18*(index - 1);
-        button.frame = CGRectMake(0, 0, w + imaW, 44);
-        if (kIsiPhone_6_6s_7_8) {
-            [button.titleLabel setFont:[UIFont systemFontOfSize:13]];
-        }else{
-            [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
-        }
+        [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
+        CGSize textSize1 = [button.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:button.titleLabel.font}];
+        button.frame = CGRectMake(0, 0, textSize1.width  + imaW, 44);
+
     }
     
     if (buttonTextColor) {
@@ -88,6 +82,43 @@
         self.arrBlocks[sender.tag](sender);
     }
 }
+
+
+
+- (NSMutableArray *)fm_navigationTargetControlle:(UIViewController *)targetViewController isLeft:(BOOL)isLeft barTitle:(NSString *)title buttonTextColor:(UIColor *)buttonTextColor itemButtonImaName:(NSString *)itemImaName btnHandler:(BtnActionBlock)btnActionBlock {
+    BtnActionBlock handler = btnActionBlock;
+    UIButton *button = [[UIButton alloc] init];
+    button.tag = self.arrBlocks.count;
+    [self.arrBlocks addObject:handler];
+    CGFloat imaW = 0;
+    if (itemImaName.length) {
+        imaW = 44;
+        [button setImage:[UIImage imageNamed:itemImaName] forState:UIControlStateNormal];
+        [button setFrame:CGRectMake(0, 0, imaW, imaW)];
+    }
+    
+    if (title.length) {
+        [button setTitle:title forState:UIControlStateNormal];
+        button.frame = CGRectMake(0, 0, button.titleLabel.frame.size.width  + imaW, 44);
+        [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    }
+    
+    if (buttonTextColor) {
+        [button setTitleColor:buttonTextColor forState:UIControlStateNormal];
+    }else{
+        [button setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
+    }
+    
+    UIBarButtonItem *barBtn = [[UIBarButtonItem alloc] initWithCustomView:button];
+    if (isLeft) {
+        targetViewController.navigationItem.leftBarButtonItem = barBtn;
+    }else{
+        targetViewController.navigationItem.rightBarButtonItem = barBtn;
+    }
+    [button addTarget:self action:@selector(fm_btnAction:) forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
 
 
 @end
